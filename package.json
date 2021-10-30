@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
     "dev": "ts-node-dev --ignore-watch node_modules index.ts",
+    "start": "yarn build & node dist/index.js",
     "test": "ts-node-dev --ignore-watch node_modules testes.ts"
   },
   "dependencies": {
