@@ -5,6 +5,7 @@ import axios from 'axios';
 import sharp from 'sharp';
 require("dotenv");
 
+console.log(process.env.INIT);
 const twitter = new Twitter();
 
 async function generateTweetQuote() {
