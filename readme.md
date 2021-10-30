@@ -1,0 +1,1 @@
+## Script para gerar frases de anime de uma em uma hora e postar no Twitter
