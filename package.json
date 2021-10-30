@@ -4,10 +4,21 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "dev": "ts-node-dev --ignore-watch node_modules index.ts",
+    "test": "ts-node-dev --ignore-watch node_modules testes.ts"
   },
   "dependencies": {
+    "axios": "^0.22.0",
+    "dotenv": "^10.0.0",
     "node-fetch": "^2.6.1",
+    "sharp": "^0.29.1",
     "twitter-lite": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.6",
+    "@types/sharp": "^0.29.2",
+    "request": "^2.88.2",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.4"
   }
 }
