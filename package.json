@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node-dev --ignore-watch node_modules index.ts",
-    "start": "yarn & yarn build & node dist/index.js"
+    "prestart": "yarn build",
+    "start": "node dist/index.js"
   },
   "dependencies": {
     "axios": "^0.22.0",
