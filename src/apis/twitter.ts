@@ -17,17 +17,16 @@ const clientAPI = new Twitter({
     access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
-class TwitterMethods {
+export default class TwitterMethods {
     async uploadImage(imageInBase64: string) {
-        const responseImageUpload = await clientUpload.post('media/upload', {
-            media_data: imageInBase64
-        });
-
-        if (!responseImageUpload) {
+        try {
+            const responseImageUpload = await clientUpload.post('media/upload', {
+                media_data: imageInBase64
+            });
+            return responseImageUpload.media_id_string as string;
+        } catch (error) {
             throw new Error('Error when trying to send an image on Twitter');
-        }
-
-        return responseImageUpload.media_id_string as string;
+        }        
     }
 
     async newPost(content: string, imgId?: string) {
@@ -37,7 +36,7 @@ class TwitterMethods {
                 media_ids: imgId
             });
         } catch (error) {
-            console.error(error);
+            throw new Error('Could not make a new post');
         }
     }
 
@@ -57,9 +56,7 @@ class TwitterMethods {
                 }
             })
         } catch (error) {
-            console.error(error)
+            throw new Error('Unable to send a new message in dm');
         }
     }
 }
-
-export default TwitterMethods;

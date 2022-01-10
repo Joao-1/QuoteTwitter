@@ -7,13 +7,12 @@ export interface ShapeQuote {
 }
 
 const newQuote = async () => {
-    const generatedQuote = await axios.get("https://animechan.vercel.app/api/random");
-
-    if (!generatedQuote) {
+    try {
+        const generatedQuote = await axios.get("https://animechan.vercel.app/api/random");
+        return generatedQuote.data as ShapeQuote;
+    } catch (error) {
         throw new Error("The generate sentences api does not return anything. Could not make a new post")
     }
-
-    return generatedQuote.data as ShapeQuote;
 }
 
 export default newQuote;

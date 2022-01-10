@@ -13,24 +13,22 @@ interface ShapeData {
 
 class Images {
   async anilist(characterName: string) {
-    const queryForGraphQL = `{
-      Character(search: "${characterName}") {
-        image {
-          large
-          medium
-        }
-      }
-    }`;
+    try {  
+      const resultFromAnilistApi = await axios.post('https://graphql.anilist.co', {
+        query: `{
+          Character(search: "${characterName}") {
+            image {
+              large
+              medium
+            }
+          }
+        }`
+      });
 
-    const resultFromAnilistApi = await axios.post('https://graphql.anilist.co', {
-      query: queryForGraphQL
-    });
-
-    if (!resultFromAnilistApi) {
+      return resultFromAnilistApi.data as unknown as ShapeData;
+    } catch (error) {
       throw new Error("Error fetching the phrase character image. Could not make a new post")
     }
-
-    return resultFromAnilistApi.data as unknown as ShapeData;
   }
 }
 
