@@ -25,12 +25,10 @@ async function generateTweetQuote() {
   } catch (error: any) {
     if (error.response?.statusText === 'Not Found') {
       generateTweetQuote()
-      return;
+    } else {
+      twitter.sendDm(error.message, "1098974140747448321");
     }
-    
-    twitter.sendDm(error.message, "1098974140747448321");
   }
 }
 
-
-setInterval(generateTweetQuote, 5000);
+setInterval(generateTweetQuote, 1000*60*6);
