@@ -31,4 +31,4 @@ async function generateTweetQuote() {
   }
 }
 
-setInterval(generateTweetQuote, 1000 * 60 * 6);
+setInterval(generateTweetQuote, 1000 * 60 * 60);
