@@ -15,6 +15,7 @@ async function generateTweetQuote() {
 
 #${character.replace(/[^a-zA-Z0-9 ]/g, '')} #${anime.replace(/[^a-zA-Z0-9 ]/g, '')}
     `;
+
     const { data } = await new searchCharacterImg().anilist(character);
     const downloadedImage = await axios.get(data.Character.image.large, { responseType: 'arraybuffer' });
     const imageResize = (await sharp(Buffer.from(downloadedImage.data, 'binary')).toFormat("jpg", { mozjpeg: true, lossless: true, quality: 100 }).toBuffer()).toString('base64');
