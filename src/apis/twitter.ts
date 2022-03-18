@@ -33,9 +33,8 @@ export default class TwitterMethods {
                 status: content,
                 media_ids: imgId
             });
-        } catch (error) {
-            console.log(error);
-            throw new Error('Could not make a new post');
+        } catch (error: any) {
+            throw new Error(error);
         }
     }
 

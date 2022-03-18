@@ -10,12 +10,12 @@ const twitter = new Twitter();
 async function generateTweetQuote() {
   try {
     const { quote, character, anime } = await quotes();
+
     const quoteFormated = `
     "${quote}" - ${character}, ${anime}
 
-#${character.replace(/[^a-zA-Z0-9 ]/g, '')} #${anime.replace(/[^a-zA-Z0-9 ]/g, '')}
+#${character.replace(/[^a-zA-Z0-9]/g, '')} #${anime.replace(/[^a-zA-Z0-9]/g, '')}
     `;
-
     const { data } = await new searchCharacterImg().anilist(character);
     const downloadedImage = await axios.get(data.Character.image.large, { responseType: 'arraybuffer' });
     const imageResize = (await sharp(Buffer.from(downloadedImage.data, 'binary')).toFormat("jpg", { mozjpeg: true, lossless: true, quality: 100 }).toBuffer()).toString('base64');
@@ -23,7 +23,7 @@ async function generateTweetQuote() {
 
     await twitter.newPost(quoteFormated, idOfTheimageSentToTwitter);
   } catch (error: any) {
-    if (error.response?.statusText === 'Not Found') {
+    if (error.message === 'Error fetching the phrase character image.') {
       generateTweetQuote()
     } else {
       twitter.sendDm(error.message, "1098974140747448321");

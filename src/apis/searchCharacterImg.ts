@@ -26,8 +26,7 @@ class Images {
       const resultFromAnilistApi = await axios.post('https://graphql.anilist.co', { query: queryForGraphQL });
 
       return resultFromAnilistApi.data as unknown as ShapeData;
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
       throw new Error("Error fetching the phrase character image.")
     }
   }
