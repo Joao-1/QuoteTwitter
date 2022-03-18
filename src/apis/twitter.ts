@@ -1,21 +1,19 @@
 import Twitter from "twitter-lite";
-require("dotenv").config();
+import config from "../config"
 
-const clientUpload = new Twitter({
-    subdomain: "upload",
-    consumer_key: process.env.CONSUMER_KEY as string,
-    consumer_secret: process.env.CONSUMER_SECRET as string,
-    access_token_key: process.env.ACCESS_TOKEN_KEY,
-    access_token_secret: process.env.ACCESS_TOKEN_SECRET
-});
+const { consumer_key, consumer_secret, access_token_key, access_token_secret } = config.twitter;
 
-const clientAPI = new Twitter({
-    subdomain: "api",
-    consumer_key: process.env.CONSUMER_KEY as string,
-    consumer_secret: process.env.CONSUMER_SECRET as string,
-    access_token_key: process.env.ACCESS_TOKEN_KEY,
-    access_token_secret: process.env.ACCESS_TOKEN_SECRET
-});
+const twitterCredentials = (subdomain: "upload" | 'api') => {
+    return {
+        subdomain,
+        consumer_key,
+        consumer_secret,
+        access_token_key,
+        access_token_secret
+    }
+}
+const clientUpload = new Twitter(twitterCredentials("upload"));
+const clientAPI = new Twitter(twitterCredentials("api"));
 
 export default class TwitterMethods {
     async uploadImage(imageInBase64: string) {
@@ -26,7 +24,7 @@ export default class TwitterMethods {
             return responseImageUpload.media_id_string as string;
         } catch (error) {
             throw new Error('Error when trying to send an image on Twitter');
-        }        
+        }
     }
 
     async newPost(content: string, imgId?: string) {
@@ -36,6 +34,7 @@ export default class TwitterMethods {
                 media_ids: imgId
             });
         } catch (error) {
+            console.log(error);
             throw new Error('Could not make a new post');
         }
     }

@@ -21,13 +21,14 @@ class Images {
         }
       }
     }`;
-    
-    try {  
+
+    try {
       const resultFromAnilistApi = await axios.post('https://graphql.anilist.co', { query: queryForGraphQL });
 
       return resultFromAnilistApi.data as unknown as ShapeData;
     } catch (error) {
-      throw new Error("Error fetching the phrase character image. Could not make a new post")
+      console.log(error)
+      throw new Error("Error fetching the phrase character image.")
     }
   }
 }

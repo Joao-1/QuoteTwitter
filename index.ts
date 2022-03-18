@@ -3,7 +3,6 @@ import Twitter from './src/apis/twitter';
 import searchCharacterImg from './src/apis/searchCharacterImg';
 import axios from 'axios';
 import sharp from 'sharp';
-require("dotenv");
 
 console.log(process.env.INIT);
 const twitter = new Twitter();
@@ -14,7 +13,7 @@ async function generateTweetQuote() {
     const quoteFormated = `
     "${quote}" - ${character}, ${anime}
 
-#${character.replace(/\s+/g, '')} #${anime.replace(/\s+/g, '')}
+#${character.replace(/[^a-zA-Z0-9 ]/g, '')} #${anime.replace(/[^a-zA-Z0-9 ]/g, '')}
     `;
     const { data } = await new searchCharacterImg().anilist(character);
     const downloadedImage = await axios.get(data.Character.image.large, { responseType: 'arraybuffer' });
@@ -31,4 +30,4 @@ async function generateTweetQuote() {
   }
 }
 
-setInterval(generateTweetQuote, 1000*60*6);
+setInterval(generateTweetQuote, 1000 * 60 * 6);
