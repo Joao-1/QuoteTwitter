@@ -48,7 +48,7 @@ export default class TwitterMethods {
                             recipient_id: userId
                         },
                         message_data: {
-                            text: message
+                            text: message.message
                         }
                     }
                 }
